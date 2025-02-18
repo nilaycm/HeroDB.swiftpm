@@ -14,15 +14,20 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var heroes: [Hero]
+    @State private var isPresented = false
     
     var body: some View {
         NavigationStack {
             list
                 .toolbar {
                     Button("+") {
-                        modelContext.insert(Hero(id: "new Hero", logo: "person.fill"))
+                        isPresented = true
+                        // modelContext.insert(Hero(id: "new Hero", logo: "person.fill"))
                     }
                     .font(.largeTitle)
+                    .fullScreenCover(isPresented: $isPresented) {
+                        HeroEditView(hero: Hero(id: "", logo: "person"))
+                    }
                 }
         }
     }
