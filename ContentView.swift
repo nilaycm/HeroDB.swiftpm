@@ -22,8 +22,8 @@ struct ContentView: View {
                 .toolbar {
                     Button("+") {
                         isPresented = true
-                        // modelContext.insert(Hero(id: "new Hero", logo: "person.fill"))
                     }
+                    .buttonStyle(.borderedProminent )
                     .font(.largeTitle)
                     .fullScreenCover(isPresented: $isPresented) {
                         HeroEditView(hero: Hero(id: "", logo: "person"))
@@ -37,15 +37,21 @@ struct ContentView: View {
         if heroes.isEmpty {
             ContentUnavailableView("No heroes yet", systemImage: "person.fill.questionmark", description:  Text("Tap the + buttton to add your first hero"))
         } else {
-            List(heroes) { hero in
-                HStack {
-                    Image(systemName: hero.logo)
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                    Spacer()
-                    Text(hero.id)
+            List {
+                ForEach(heroes) { hero in
+                    HStack {
+                        Image(systemName: hero.logo)
+                            .imageScale(.large)
+                            .foregroundColor(.accentColor)
+                        Spacer()
+                        Text(hero.id)
+                            .bold()
+                            .fontDesign(.rounded)
+                            .foregroundStyle(Color.blue.opacity(0.5))
+                    }   
+                    .font(.title)
                 }
-            }
+            }   
         }
     }
 }
