@@ -15,6 +15,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var heroes: [Hero]
     @State private var isPresented = false
+    @State private var selection = Set<String>()
     
     var body: some View {
         NavigationStack {
@@ -28,6 +29,16 @@ struct ContentView: View {
                     .fullScreenCover(isPresented: $isPresented) {
                         HeroEditView(hero: Hero(id: "", logo: "person"))
                     }
+                    EditButton()
+                    if !selection.isEmpty {
+                        Button("", systemImage: "trash") { 
+                            for id in selection {
+                                try! modelContext.delete(model: Hero.self, where: #Predicate {
+                                    $0.id == id
+                                })
+                            }
+                        }
+                    }
                 }
         }
     }
@@ -37,7 +48,7 @@ struct ContentView: View {
         if heroes.isEmpty {
             ContentUnavailableView("No heroes yet", systemImage: "person.fill.questionmark", description:  Text("Tap the + buttton to add your first hero"))
         } else {
-            List {
+            List(selection: $selection) {
                 ForEach(heroes) { hero in
                     HStack {
                         Image(systemName: hero.logo)
@@ -51,6 +62,7 @@ struct ContentView: View {
                     }   
                     .font(.title)
                 }
+                .onDelete { modelContext.delete(heroes[$0.first!]) }
             }   
         }
     }
