@@ -42,7 +42,8 @@ struct ContentView: View {
                 }
         }
     }
-    
+    //TODO add atrributes to heroes
+    //if possible make it possible to use an image as the icon for the //heroes instead off the personfill
     @ViewBuilder
     var list: some View {
         if heroes.isEmpty {
