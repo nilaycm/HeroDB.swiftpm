@@ -10,9 +10,16 @@ struct HeroEditView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Enter a name", text: $hero.id)
-                    .focused($focused)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    TextField("Enter a name", text: $hero.id)
+                        .focused($focused)
+                        .textFieldStyle(.roundedBorder)
+                    ForEach(1...5, id: \.self) { power in
+                        Circle()
+                            .frame(width: 25)
+                            .foregroundStyle(power <= hero.power ? Color.accentColor : .primary)
+                    }
+                }
                 HStack {
                     ForEach(logos, id:\.self) { logo in
                         Button {
@@ -48,6 +55,6 @@ struct HeroEditView: View {
 }
 
 #Preview {
-    @Previewable @State var hero = Hero(id: "", logo: "person")
+    @Previewable @State var hero = Hero(id: "", logo: "person", power: 3)
     HeroEditView(hero: hero)
 }

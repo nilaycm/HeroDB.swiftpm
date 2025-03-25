@@ -4,10 +4,12 @@ import SwiftData
 @Model class Hero: Identifiable, Hashable {
     var id: String
     var logo: String 
+    var power: Int
     
-    init(id: String, logo: String) {
+    init(id: String, logo: String, power: Int) {
         self.id = id
         self.logo = logo
+        self.power = power
     }
 }
 
@@ -27,7 +29,7 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent )
                     .font(.largeTitle)
                     .fullScreenCover(isPresented: $isPresented) {
-                        HeroEditView(hero: Hero(id: "", logo: "person"))
+                        HeroEditView(hero: Hero(id: "", logo: "person", power: 1))
                     }
                     EditButton()
                     if !selection.isEmpty {
