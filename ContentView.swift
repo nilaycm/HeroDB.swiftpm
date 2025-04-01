@@ -53,17 +53,19 @@ struct ContentView: View {
         } else {
             List(selection: $selection) {
                 ForEach(heroes) { hero in
-                    HStack {
-                        Image(systemName: hero.logo)
-                            .imageScale(.large)
-                            .foregroundColor(.accentColor)
-                        Spacer()
-                        Text(hero.id)
-                            .bold()
-                            .fontDesign(.rounded)
-                            .foregroundStyle(Color.blue.opacity(0.5))
-                    }   
-                    .font(.title)
+                    NavigationLink(destination: HeroEditView(hero: hero)) { 
+                        HStack {
+                            Image(systemName: hero.logo)
+                                .imageScale(.large)
+                                .foregroundColor(.accentColor)
+                            Spacer()
+                            Text(hero.id)
+                                .bold()
+                                .fontDesign(.rounded)
+                                .foregroundStyle(Color.blue.opacity(0.5))
+                        }   
+                        .font(.title)
+                    }
                 }
                 .onDelete { modelContext.delete(heroes[$0.first!]) }
             }   

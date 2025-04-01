@@ -5,7 +5,8 @@ struct HeroEditView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focused: Bool
-    let logos = ["person", "medal", "key.horizontal.fill"]
+    private let logos = ["person", "medal", "key.horizontal.fill"]
+    var isPresented = false
     
     var body: some View {
         NavigationStack {
@@ -23,7 +24,7 @@ struct HeroEditView: View {
                 HStack {
                     ForEach(logos, id:\.self) { logo in
                         Button {
-                            
+                            hero.logo = logo
                         } label: {
                             Image(systemName: logo)
                                 .resizable()
@@ -33,8 +34,10 @@ struct HeroEditView: View {
                     }
                 }   
             }
-                .padding()
-                .toolbar {
+            .disabled(isPresented)
+            .padding()
+            .toolbar {
+                if isPresented {
                     ToolbarItem(placement: .topBarLeading) { 
                         Button("Cancel") { 
                             dismiss()
@@ -47,14 +50,15 @@ struct HeroEditView: View {
                         }
                     }
                 }
+            }
         }
         .onAppear {
             focused = true 
         }
     }
 }
-
-#Preview {
-    @Previewable @State var hero = Hero(id: "", logo: "person", power: 3)
-    HeroEditView(hero: hero)
-}
+//
+//#Preview {
+//    @Previewable @State var hero = Hero(id: "", logo: "person", power: 3)
+//    HeroEditView(hero: hero)
+//}
