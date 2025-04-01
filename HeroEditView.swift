@@ -16,9 +16,13 @@ struct HeroEditView: View {
                         .focused($focused)
                         .textFieldStyle(.roundedBorder)
                     ForEach(1...5, id: \.self) { power in
-                        Circle()
-                            .frame(width: 25)
-                            .foregroundStyle(power <= hero.power ? Color.accentColor : .primary)
+                        Button {
+                            hero.power = power
+                        } label: {
+                            Circle()
+                                .frame(width: 25)
+                                .foregroundStyle(power <= hero.power ? Color.accentColor : .primary)
+                        }
                     }
                 }
                 HStack {

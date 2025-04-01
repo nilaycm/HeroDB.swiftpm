@@ -29,7 +29,8 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent )
                     .font(.largeTitle)
                     .fullScreenCover(isPresented: $isPresented) {
-                        HeroEditView(hero: Hero(id: "", logo: "person", power: 1))
+                        HeroEditView(hero: Hero(id: "", logo: "person", 
+                        power: 1), isPresented: true)
                     }
                     EditButton()
                     if !selection.isEmpty {
