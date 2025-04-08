@@ -30,7 +30,7 @@ struct ContentView: View {
                     .font(.largeTitle)
                     .fullScreenCover(isPresented: $isPresented) {
                         HeroEditView(hero: Hero(id: "", logo: "person", 
-                        power: 1), isPresented: true)
+                        power: 1), isNew: true)
                     }
                     EditButton()
                     if !selection.isEmpty {
